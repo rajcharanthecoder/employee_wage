@@ -24,3 +24,19 @@ wage_per_hour=20
 part_time_wage=$((part_time_hours*wage_per_hour))
 
 echo "Part-time Employee Daily Wage: $part_time_wage"
+
+read -p "Enter employee type (full-time or part-time): " employee_type
+
+# Switch-case-like structure
+case $employee_type in
+    "full-time")
+        echo "Full-time Employee Daily Wage: $daily_wage"
+        ;;
+    "part-time")
+        daily_wage=part_time_wage
+        echo "Part-time Employee Daily Wage: $daily_wage"
+        ;;
+    *)
+        echo "Invalid employee type entered."
+        ;;
+esac
