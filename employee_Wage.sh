@@ -7,57 +7,46 @@ else
 echo "Absent"
 fi
 
-wage_per_hour=20
-full_day_hours=8
+#!/bin/bash
 
-# Calculate daily wage
-daily_wage=$((wage_per_hour * full_day_hours))
-
-# Display the result
-echo "Daily Employee Wage: $daily_wage"
-
+# Constants
+full_time_hours=8
 part_time_hours=4
 wage_per_hour=20
+max_hours=100
+max_days=20
 
 # Function to calculate daily wage
+calculate_wage() {
+    local hours_worked=$1
+    echo $((wage_per_hour * hours_worked))
+}
 
-part_time_wage=$((part_time_hours*wage_per_hour))
+total_hours=0
+total_days=0
 
-echo "Part-time Employee Daily Wage: $part_time_wage"
+# Loop until either max hours or max days are reached
+while [ $total_hours -lt $max_hours ] && [ $total_days -lt $max_days ]; do
+    read -p "Enter employee type (full-time or part-time): " employee_type
 
-read -p "Enter employee type (full-time or part-time): " employee_type
+    case $employee_type in
+        "full-time")
+            daily_wage=$(calculate_wage $full_time_hours)
+            ((total_hours += full_time_hours))
+            ;;
+        "part-time")
+            daily_wage=$(calculate_wage $part_time_hours)
+            ((total_hours += part_time_hours))
+            ;;
+        *)
+            echo "Invalid employee type entered."
+            continue  # Skip the rest of the loop and start a new iteration
+            ;;
+    esac
 
-# Switch-case-like structure
-case $employee_type in
-    "full-time")
-        echo "Full-time Employee Daily Wage: $daily_wage"
-        ;;
-    "part-time")
-        daily_wage=part_time_wage
-        echo "Part-time Employee Daily Wage: $daily_wage"
-        ;;
-    *)
-        echo "Invalid employee type entered."
-        ;;
-esac
+    ((total_days++))
 
+    echo "Daily Wage: $daily_wage | Total Hours: $total_hours | Total Days: $total_days"
+done
 
-wage_per_hour=20
-full_day_hours=8
-
-# Calculate daily wage
-daily_wage=$((wage_per_hour * full_day_hours))
-
-workdaysmonth=20
-
-full_monthly_wage=$((daily_wage*workdaysmonth))
-echo "Full-time worker's wage for a month $full_monthly_wage"
-
-wage_per_hour=20
-full_day_hours=4
-
-# Calculate daily wage
-daily_wage=$((wage_per_hour * full_day_hours))
-
-part_monthly_wage=$((part_time_wage*workdaysmonth))
-echo "Part-Time worker's wage for a month $part_monthly_wage"
+echo "Wages calculated until either $max_hours hours or $max_days days are reached."
