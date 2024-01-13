@@ -40,3 +40,24 @@ case $employee_type in
         echo "Invalid employee type entered."
         ;;
 esac
+
+
+wage_per_hour=20
+full_day_hours=8
+
+# Calculate daily wage
+daily_wage=$((wage_per_hour * full_day_hours))
+
+workdaysmonth=20
+
+full_monthly_wage=$((daily_wage*workdaysmonth))
+echo "Full-time worker's wage for a month $full_monthly_wage"
+
+wage_per_hour=20
+full_day_hours=4
+
+# Calculate daily wage
+daily_wage=$((wage_per_hour * full_day_hours))
+
+part_monthly_wage=$((part_time_wage*workdaysmonth))
+echo "Part-Time worker's wage for a month $part_monthly_wage"
